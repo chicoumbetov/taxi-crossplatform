@@ -1,17 +1,17 @@
-// import { useSignUp } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
+import { useSignUp } from "@clerk/clerk-expo";
+import { Link, router } from "expo-router";
 import { useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 
 import { icons, images } from "@/constants";
 import CustomButton from "../../components/CustomButton";
 import InputField from "../../components/InputField";
 import OAuth from "../../components/OAuth";
-// import { fetchAPI } from "../../lib/fetch";
+import { fetchAPI } from "../../lib/fetch";
 
 const SignUp = () => {
-  // const { isLoaded, signUp, setActive } = useSignUp();
+  const { isLoaded, signUp, setActive } = useSignUp();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [form, setForm] = useState({
@@ -26,7 +26,6 @@ const SignUp = () => {
   });
 
   const onSignUpPress = async () => {
-    /*
     if (!isLoaded) return;
     try {
       await signUp.create({
@@ -44,12 +43,10 @@ const SignUp = () => {
       console.log(JSON.stringify(err, null, 2));
       Alert.alert("Error", err.errors[0].longMessage);
     }
-    */
   };
   const onPressVerify = async () => {
-    // if (!isLoaded) return;
+    if (!isLoaded) return;
     try {
-      /*
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: verification.code,
       });
@@ -62,7 +59,7 @@ const SignUp = () => {
             clerkId: completeSignUp.createdUserId,
           }),
         });
-        // await setActive({ session: completeSignUp.createdSessionId });
+        await setActive({ session: completeSignUp.createdSessionId });
         setVerification({
           ...verification,
           state: "success",
@@ -74,7 +71,6 @@ const SignUp = () => {
           state: "failed",
         });
       }
-      */
     } catch (err: any) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
@@ -135,9 +131,9 @@ const SignUp = () => {
         </View>
         <ReactNativeModal
           isVisible={verification.state === "pending"}
-          // onBackdropPress={() =>
-          //   setVerification({ ...verification, state: "default" })
-          // }
+          onBackdropPress={() =>
+            setVerification({ ...verification, state: "default" })
+          }
           onModalHide={() => {
             if (verification.state === "success") {
               setShowSuccessModal(true);
@@ -187,7 +183,10 @@ const SignUp = () => {
             </Text>
             <CustomButton
               title="Browse Home"
-              // onPress={() => router.push(`/(root)/(tabs)/home`)}
+              onPress={() => {
+                setShowSuccessModal(false);
+                router.push(`/(root)/(tabs)/home`);
+              }}
               className="mt-5"
             />
           </View>
