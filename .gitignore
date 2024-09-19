@@ -24,3 +24,4 @@ yarn.lock
 opt
 
 .env
+.env.local
