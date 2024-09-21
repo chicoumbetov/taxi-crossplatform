@@ -132,9 +132,9 @@ const SignUp = () => {
         </View>
         <ReactNativeModal
           isVisible={verification.state === "pending"}
-          onBackdropPress={() =>
-            setVerification({ ...verification, state: "default" })
-          }
+          // onBackdropPress={() =>
+          //   setVerification({ ...verification, state: "default" })
+          // }
           onModalHide={() => {
             if (verification.state === "success") {
               setShowSuccessModal(true);
