@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
@@ -13,6 +13,8 @@ import {
   generateMarkersFromData,
 } from "../lib/map";
 
+import drivers from "../assets/mock-data/drivers.json";
+
 const directionsAPI = process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY;
 
 const Map = () => {
@@ -24,7 +26,11 @@ const Map = () => {
   } = useLocationStore();
   const { selectedDriver, setDrivers } = useDriverStore();
 
-  const { data: drivers, loading, error } = useFetch<Driver[]>("/(api)/driver");
+  const {
+    data, // : drivers,
+    loading,
+    error,
+  } = useFetch<Driver[]>("/(api)/driver");
   const [markers, setMarkers] = useState<MarkerData[]>([]);
 
   useEffect(() => {
@@ -37,7 +43,9 @@ const Map = () => {
         userLongitude,
       });
 
-      setMarkers(newMarkers);
+      if (newMarkers.length > 0) {
+        setMarkers(newMarkers);
+      }
     }
   }, [drivers, userLatitude, userLongitude]);
 
@@ -73,12 +81,14 @@ const Map = () => {
       </View>
     );
 
+  /*
   if (error)
     return (
       <View className="flex justify-between items-center w-full">
         <Text>Error: {error}</Text>
       </View>
     );
+    */
 
   return (
     <MapView
