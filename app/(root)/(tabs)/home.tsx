@@ -1,49 +1,52 @@
-// import { useUser } from "@clerk/clerk-expo";
-// import { useAuth } from "@clerk/clerk-expo";
-// import * as Location from "expo-location";
+import { useAuth, useUser } from "@clerk/clerk-expo";
+import * as Location from "expo-location";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-/*
 import GoogleTextInput from "@/components/GoogleTextInput";
 import Map from "@/components/Map";
 import RideCard from "@/components/RideCard";
-*/
-// import { useLocationStore } from "@/store";
+import { icons, images } from "@/constants";
+import { useFetch } from "@/lib/fetch";
+import { useLocationStore } from "@/store";
+import { Ride } from "@/types/type";
+import mockRecentRides from "../../../assets/mock-data/recent-rides.json";
 
 const Home = () => {
-  /*
   const { user } = useUser();
   const { signOut } = useAuth();
 
   const { setUserLocation, setDestinationLocation } = useLocationStore();
-*/
+
   const handleSignOut = () => {
-    // signOut();
+    signOut();
     router.replace("/(auth)/sign-in");
   };
 
   const [hasPermission, setHasPermission] = useState<boolean>(false);
 
-  /*
   const {
-    data: recentRides,
+    data, // recentRides,
     loading,
     error,
   } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`);
-  */
 
   useEffect(() => {
     (async () => {
-      /*
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setHasPermission(false);
         return;
       }
-      
 
       let location = await Location.getCurrentPositionAsync({});
 
@@ -52,13 +55,11 @@ const Home = () => {
         longitude: location.coords?.longitude!,
       });
 
-      
       setUserLocation({
         latitude: location.coords?.latitude,
         longitude: location.coords?.longitude,
         address: `${address[0].name}, ${address[0].region}`,
       });
-      */
     })();
   }, []);
 
@@ -76,11 +77,12 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-general-500">
-      <Text>Home page</Text>
-      {/*
       <FlatList
-        data={recentRides?.slice(0, 5)}
-        renderItem={({ item }) => <RideCard ride={item} />}
+        // data={recentRides?.slice(0, 5)}
+        data={mockRecentRides}
+        renderItem={({ item }) => {
+          return <RideCard ride={item} />;
+        }}
         keyExtractor={(item, index) => index.toString()}
         className="px-5"
         keyboardShouldPersistTaps="handled"
@@ -139,7 +141,6 @@ const Home = () => {
           </>
         }
       />
-      */}
     </SafeAreaView>
   );
 };
