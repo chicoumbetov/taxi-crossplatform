@@ -19,7 +19,7 @@ import { icons, images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import { useLocationStore } from "@/store";
 import { Ride } from "@/types/type";
-import mockRecentRides from "../../../assets/mock-data/recent-rides.json";
+import recentRides from "../../../assets/mock-data/recent-rides.json";
 
 const Home = () => {
   const { user } = useUser();
@@ -68,18 +68,15 @@ const Home = () => {
     longitude: number;
     address: string;
   }) => {
-    /*
     setDestinationLocation(location);
 
-    router.push("/(root)/find-ride");
-    */
+    // router.push("/(root)/find-ride");
   };
 
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
-        // data={recentRides?.slice(0, 5)}
-        data={mockRecentRides}
+        data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => {
           return <RideCard ride={item} />;
         }}
