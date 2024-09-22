@@ -11,7 +11,10 @@ const RideCard = ({ ride }: { ride: Ride }) => {
         <View className="flex flex-row items-center justify-between">
           <Image
             source={{
+              uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat%3A-122.29009844646316%2C47.54607447032754&zoom=14.3497&marker=lonlat%3A-122.29188334609739%2C47.54403990655936%3Btype%3Aawesome%3Bcolor%3A%23bb3f73%3Bsize%3Ax-large%3Bicon%3Apaw%7Clonlat%3A-122.29282631194182%2C47.549609195001494%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome%7Clonlat%3A-122.28726954893025%2C47.541766557545884%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
+              /*
               uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${ride.destination_longitude},${ride.destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
+              */
             }}
             className="w-[80px] h-[90px] rounded-lg"
           />
@@ -66,7 +69,11 @@ const RideCard = ({ ride }: { ride: Ride }) => {
               Payment Status
             </Text>
             <Text
-              className={`text-md capitalize font-JakartaBold ${ride.payment_status === "paid" ? "text-green-500" : "text-red-500"}`}
+              className={`text-md capitalize font-JakartaBold ${
+                ride.payment_status === "paid"
+                  ? "text-green-500"
+                  : "text-red-500"
+              }`}
             >
               {ride.payment_status}
             </Text>
