@@ -4,6 +4,7 @@ import CustomButton from "@/components/CustomButton";
 import DriverCard from "@/components/DriverCard";
 import RideLayout from "@/components/RideLayout";
 import { useDriverStore } from "@/store";
+import { router } from "expo-router";
 
 const ConfirmRide = () => {
   const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
@@ -24,7 +25,7 @@ const ConfirmRide = () => {
           <View className="mx-5 mt-10">
             <CustomButton
               title="Select Ride"
-              // onPress={() => router.push("/(root)/book-ride")}
+              onPress={() => router.push("/(root)/book-ride")}
             />
           </View>
         )}
