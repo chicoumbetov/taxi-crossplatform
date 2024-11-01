@@ -50,7 +50,7 @@ export const useLocationStore = create<LocationStore>((set: any) => ({
   },
 }));
 
-export const useDriverStore = create<DriverStore>((set) => ({
+export const useDriverStore = create<DriverStore>((set: any) => ({
   drivers: [] as MarkerData[],
   selectedDriver: null,
   setSelectedDriver: (driverId: number) =>
