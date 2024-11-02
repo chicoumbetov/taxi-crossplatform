@@ -19,7 +19,7 @@ import { icons, images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import { useLocationStore } from "@/store";
 import { Ride } from "@/types/type";
-import recentRides from "../../../assets/mock-data/recent-rides.json";
+// * import recentRides from "../../../assets/mock-data/recent-rides.json";
 
 const Home = () => {
   const { user } = useUser();
@@ -35,7 +35,7 @@ const Home = () => {
   const [hasPermission, setHasPermission] = useState<boolean>(false);
 
   const {
-    data, // recentRides,
+    data: recentRides,
     loading,
     error,
   } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`);
@@ -49,17 +49,21 @@ const Home = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
+      console.log("location getCurrentPositionAsync:", location);
 
       const address = await Location.reverseGeocodeAsync({
         latitude: location.coords?.latitude!,
         longitude: location.coords?.longitude!,
       });
+      console.log("address :", address);
 
-      setUserLocation({
-        latitude: location.coords?.latitude,
-        longitude: location.coords?.longitude,
-        address: `${address[0].name}, ${address[0].region}`,
-      });
+      if (address[0]) {
+        setUserLocation({
+          latitude: location.coords?.latitude,
+          longitude: location.coords?.longitude,
+          address: `${address[0]?.name}, ${address[0]?.region}`,
+        });
+      }
     })();
   }, []);
 
@@ -68,9 +72,11 @@ const Home = () => {
     longitude: number;
     address: string;
   }) => {
+    console.log("location handleDestinationPress:", location);
+
     setDestinationLocation(location);
 
-    // router.push("/(root)/find-ride");
+    router.push("/(root)/find-ride");
   };
 
   return (
