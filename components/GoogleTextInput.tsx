@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { Image, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { icons } from "@/constants";
@@ -35,7 +35,7 @@ const GoogleTextInput = ({
               ? textInputBackgroundColor
               : "white",
             fontSize: 16,
-            fontWeight: "600",
+            fontWeight: "600", // * for Android devices in string
             marginTop: 5,
             width: "100%",
             borderRadius: 200,
