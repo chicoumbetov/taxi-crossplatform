@@ -65,7 +65,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="history"
+        name="rides"
         options={{
           title: "Rides",
           headerShown: false,
